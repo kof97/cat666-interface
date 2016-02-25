@@ -35,9 +35,33 @@ class Index extends MrController
 		var_dump($res);
 	}
 
-	public function get()
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public function getRecommend()
 	{
+		$res = $this->model("db")->getRecommend();
+
+		$res = json_encode($res);
 		
+		return $res;
+	}
+
+	/**
+	 * get videos' information by catgory.
+	 * the uri segment 3 is the category id.
+	 * 
+	 * @return json
+	 */
+	public function getCat()
+	{
+		$id = uriSegment(3);
+		$res = $this->model("db")->getCat($id);
+
+		$res = json_encode($res);
+		return $res;
 	}
 
 

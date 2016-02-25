@@ -35,6 +35,10 @@ class Index extends MrController
 		var_dump($res);
 	}
 
+	public function get()
+	{
+		
+	}
 
 
 

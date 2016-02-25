@@ -1,4 +1,14 @@
 <?php 
+/**
+ * controller
+ * 
+ * PHP version 5
+ *
+ * @category PHP
+ * @author   LYJ <1048434786@qq.com>
+ */
+if (!defined('ACC')) exit('this script access allowed');
+
 class Index extends MrController
 {
 	public function init()

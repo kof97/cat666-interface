@@ -11,6 +11,7 @@ if (!defined('ACC')) exit('this script access allowed');
 
 class Db extends MrModel
 {
+	// to save the database object
 	public $db;
 
 	/**
@@ -21,12 +22,13 @@ class Db extends MrModel
 	function __construct()
 	{
 		$this->db = $this->db();
+
 	}
 
 	/**
+	 * get the recommend videos.
 	 * 
-	 * 
-	 * 
+	 * @return array
 	 */
 	public function getRecommend()
 	{	
@@ -37,7 +39,7 @@ class Db extends MrModel
 		$cat = array();
 
 		// get top category list
-		$c = $this->db->query("select id, name from nav where parentid = 0");
+		$c = $this->db->query("SELECT id, name from nav where parentid = 0");
 		while ($p = $c->fetch_assoc()) {
 			$catName = $p['name'];
 			$cat["$catName"] =  $p["id"];
@@ -45,7 +47,7 @@ class Db extends MrModel
 		}
 
 		// get 4 videos that order by viewcounts
-		$res = $this->db->query("select * from videoinfo order by viewcounts limit 0, 4");
+		$res = $this->db->query("SELECT * from videoinfo order by viewcounts limit 0, 4");
 		while ($r = $res->fetch_assoc()) {
 			array_push($arr, $r);
 		}
@@ -55,7 +57,7 @@ class Db extends MrModel
 		// get every categorys top 4
 		foreach ($cat as $name => $id) {
 
-			$res = $this->db->query("select * from videoinfo where fid = $id order by viewcounts limit 0, 4");
+			$res = $this->db->query("SELECT * from videoinfo where fid = $id order by viewcounts limit 0, 4");
 			while ($r = $res->fetch_assoc()) {
 				array_push($arr, $r);
 			}
@@ -64,6 +66,7 @@ class Db extends MrModel
 		}
 
 		return $result;
+
 	}
 
 	/**
@@ -76,24 +79,37 @@ class Db extends MrModel
 	{
 		$arr = array();
 
-		$res = $this->db->query("select * from videoinfo where fid = $id");
+		$res = $this->db->query("SELECT * from videoinfo where fid = $id");
 		while ($r = $res->fetch_assoc()) {
 			array_push($arr, $r);
 		}
 
 		return $arr;
+
 	}
 
+	/**
+	 * get search results.
+	 *
+	 * @param string $key key.
+	 * @return array
+	 */
 	public function search($key)
-	{
+	{	
+		$arr = array();
+	  	$keys = "%" . $key . "%";
 
+	  	$stmt = $this->db->prepare(" SELECT * FROM videoinfo WHERE description like ? ");
+	  	$stmt->bind_param("s", $keys);
+	  	$stmt->execute();
 
-		return 0;
-	}
-
+	  	$res = $stmt->get_result();
+	  	while ($r = $res->fetch_assoc()) {
+	  		array_push($arr, $r);
+	  	}
 	
+		return $arr;
 
-
-
+	}
 	
 }

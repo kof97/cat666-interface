@@ -14,31 +14,13 @@ class Index extends MrController
 	public function init()
 	{
 		return 0;
+
 	}
 
 	/**
+	 * get the recommend videos
 	 * 
-	 * 
-	 * 
-	 * @return int 0 the request key is empty.
-	 */
-	public function search()
-	{
-		$key = "1";
-		if (trim($key) == "") {
-			return 0;
-		}
-
-		$res = $this->model("db")->search($key);
-
-
-		var_dump($res);
-	}
-
-	/**
-	 * 
-	 * 
-	 * 
+	 * @return json
 	 */
 	public function getRecommend()
 	{
@@ -47,6 +29,7 @@ class Index extends MrController
 		$res = json_encode($res);
 		
 		return $res;
+
 	}
 
 	/**
@@ -62,11 +45,28 @@ class Index extends MrController
 
 		$res = json_encode($res);
 		return $res;
+
 	}
 
+	/**
+	 * get search results.
+	 * 
+	 * @return int 0 the request key is empty.
+	 */
+	public function search()
+	{
+		$key = get("");
 
+		if (is_array($key) || empty($key) || trim($key) == "") {
+			return 0;
+		}
 
+		$res = $this->model("db")->search($key);
+		$res = json_encode($res);
 
+		return $res;
+
+	}
 
 }
 

@@ -3,9 +3,9 @@
 First, we have only one controller that is the index. Each methods can be find in the index controller.
 
 ## Request Mode
-> \$base_url/cat666-interface/index.php/index/$method
+> $base_url/cat666-interface/index.php/index/$method
 
-\$base_url is the base url, \$method is the method name.   
+$base_url is the base url, $method is the method name.   
 For example:
 > http://cat666.com/cat666-interface/index.php/index/getRecommend
 
@@ -14,7 +14,7 @@ Get the recommend videos, including the four hits highest videos and the four hi
 For example:
 > http://cat666.com/cat666-interface/index.php/index/getRecommend
 
-## getCat/\$id
+## getCat/$id
 Get videos by category id  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/getCat/1

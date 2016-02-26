@@ -13,7 +13,7 @@ class Index extends MrController
 {
 	public function init()
 	{
-		var_dump(0);
+		var_dump($this->db());
 		return 0;
 
 	}

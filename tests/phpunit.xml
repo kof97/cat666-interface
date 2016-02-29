@@ -1,7 +1,7 @@
 <phpunit>
   	<testsuites>
-  	  	<testsuite name="MrPHP">
-  	  	  	<directory>./MrPHPTest/</directory>
+  	  	<testsuite name="cat666">
+  	  	  	<directory>./IndexTest/</directory>
   	  	</testsuite>
   	</testsuites>
 </phpunit>

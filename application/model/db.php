@@ -51,7 +51,7 @@ class Db extends MrModel
 		while ($r = $res->fetch_assoc()) {
 			array_push($arr, $r);
 		}
-		$result[0] = $arr;
+		$result["!@#$%^&*0!@#$%^&*"] = $arr;
 		$arr = array();
 
 		// get every categorys top 4
@@ -61,7 +61,7 @@ class Db extends MrModel
 			while ($r = $res->fetch_assoc()) {
 				array_push($arr, $r);
 			}
-			$result["$name"] = $arr;
+			$result["!@#$%^&*$name!@#$%^&*"] = $arr;
 			$arr = array();
 		}
 

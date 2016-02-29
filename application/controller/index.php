@@ -14,7 +14,7 @@ class Index extends MrController
 	public function init()
 	{
 		var_dump($this->db());
-		return $this->db();
+		echo 0;
 
 	}
 

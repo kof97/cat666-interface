@@ -24,11 +24,47 @@ class IndexTest extends PHPUnit_Framework_TestCase
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$res = curl_exec($this->ch);
-		$r = curl_multi_getcontent($this->ch);
 
-		//var_dump($res);
-		$this->assertObjectHasAttribute("mysqli", $r);
+		$this->assertStringMatchesFormat("object(mysqli)%a[\"client_info\"]%w=>%wstring(%d)%a", $res);
 
+	}
+
+	public function testGetRecommend()
+	{
+		curl_setopt($this->ch, CURLOPT_URL, BASE_URI . "index.php/index/getRecommend");
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$res = curl_exec($this->ch);
+
+		$this->assertStringMatchesFormat("%a!@#$%^&*%a!@#$%^&*%a", $res);
+	}
+
+	public function testGetCat()
+	{
+		$num = rand(0, 1000);
+		curl_setopt($this->ch, CURLOPT_URL, BASE_URI . "index.php/index/getCat/" . $num);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$res = curl_exec($this->ch);
+
+		$this->assertStringMatchesFormat("[%A]", $res);
+	}
+
+	public function testSearch()
+	{
+		$num = rand(0, 1000);
+		curl_setopt($this->ch, CURLOPT_URL, BASE_URI . "index.php/index/getCat/" . $num);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+
+		$res = curl_exec($this->ch);
+
+		$this->assertStringMatchesFormat("[%A]", $res);
 	}
 	
 }

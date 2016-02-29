@@ -14,6 +14,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
 	function __construct()
 	{
 		$this->ch = curl_init();
+
 	}
 
 	public function testInit()
@@ -39,6 +40,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
 		$res = curl_exec($this->ch);
 
 		$this->assertStringMatchesFormat("%a!@#$%^&*%a!@#$%^&*%a", $res);
+
 	}
 
 	public function testGetCat()
@@ -52,6 +54,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
 		$res = curl_exec($this->ch);
 
 		$this->assertStringMatchesFormat("[%A]", $res);
+
 	}
 
 	public function testSearch()
@@ -63,14 +66,17 @@ class IndexTest extends PHPUnit_Framework_TestCase
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$res = curl_exec($this->ch);
-
+		if (trim($res) != "0") {
+			$this->assertStringMatchesFormat("[%A]", $res);
+		}
 		
-		$this->assertThat(
-          	$res,
-          	$this->logicalNot(
-          	  	$this->assertStringMatchesFormat("[%A]", $res)
-          	)
-        );
+		$this->assertEquals(0, $res);
+
+	}
+
+	function __destruct()
+	{
+		curl_close($this->ch);
 	}
 	
 }

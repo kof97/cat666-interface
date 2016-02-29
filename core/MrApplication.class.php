@@ -15,7 +15,7 @@ if (!defined('ACC')) exit('this script access allowed');
 
 class MrApplication
 {
-	/**
+    /**
      * start function.
      *
      * @return void

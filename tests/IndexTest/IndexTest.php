@@ -77,6 +77,7 @@ class IndexTest extends PHPUnit_Framework_TestCase
 	function __destruct()
 	{
 		curl_close($this->ch);
+		
 	}
 	
 }

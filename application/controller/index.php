@@ -14,7 +14,7 @@ class Index extends MrController
 	public function init()
 	{
 		var_dump($this->db());
-		return 0;
+		echo 0;
 
 	}
 
@@ -28,9 +28,8 @@ class Index extends MrController
 		$res = $this->model("db")->getRecommend();
 
 		$res = json_encode($res);
-		var_dump($res);
 
-		return $res;
+		echo $res;
 
 	}
 
@@ -46,9 +45,8 @@ class Index extends MrController
 		$res = $this->model("db")->getCat($id);
 
 		$res = json_encode($res);
-		var_dump($res);
 
-		return $res;
+		echo $res;
 
 	}
 
@@ -62,15 +60,14 @@ class Index extends MrController
 		$key = get("key");
 
 		if (is_array($key) || empty($key) || trim($key) == "") {
-			var_dump(0);
+			echo 0;
 			return 0;
 		}
 
 		$res = $this->model("db")->search($key);
 		$res = json_encode($res);
-		var_dump($res);
 
-		return $res;
+		echo $res;
 
 	}
 

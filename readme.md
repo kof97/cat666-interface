@@ -25,3 +25,6 @@ For example:
 > http://cat666.com/cat666-interface/index.php/index/search
 
 ***if return 0, that means get nothing by GET, please check your input.***
+
+# TEST
+In the root path, execute phpunit tests.

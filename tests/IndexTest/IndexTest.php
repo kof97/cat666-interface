@@ -64,7 +64,13 @@ class IndexTest extends PHPUnit_Framework_TestCase
 
 		$res = curl_exec($this->ch);
 
-		$this->assertStringMatchesFormat("[%A]", $res);
+		
+		$this->assertThat(
+          	$res,
+          	$this->logicalNot(
+          	  	$this->assertStringMatchesFormat("[%A]", $res)
+          	)
+        );
 	}
 	
 }

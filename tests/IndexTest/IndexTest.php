@@ -56,8 +56,8 @@ class IndexTest extends PHPUnit_Framework_TestCase
 
 	public function testSearch()
 	{
-		$num = rand(0, 1000);
-		curl_setopt($this->ch, CURLOPT_URL, BASE_URI . "index.php/index/getCat/" . $num);
+		$_POST['key'] = "321";
+		curl_setopt($this->ch, CURLOPT_URL, BASE_URI . "index.php/index/search");
 		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);

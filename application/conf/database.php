@@ -11,23 +11,23 @@ if (!defined('ACC')) exit('this script access allowed');
  * EXPLANATION OF VARIABLES
  * -------------------------------------------------------------------
  *
- *	['enable'] whether enable the database, ture or false.
- *	['hostname'] The hostname of your database server.
- *	['port'] connect port. default 3306.
- *	['username'] The username used to connect to the database.
- *	['password'] The password used to connect to the database.
- *	['database'] The name of the database you want to connect to.
- *	['dbdriver'] The database type. ie: mysql.  Currently supported:
- *				 mysqli, pdo
- *	['charset'] The character set used in communicating with the database.
+ *  ['enable'] whether enable the database, ture or false.
+ *  ['hostname'] The hostname of your database server.
+ *  ['port'] connect port. default 3306.
+ *  ['username'] The username used to connect to the database.
+ *  ['password'] The password used to connect to the database.
+ *  ['database'] The name of the database you want to connect to.
+ *  ['dbdriver'] The database type. ie: mysql.  Currently supported:
+ *               mysqli, pdo
+ *  ['charset'] The character set used in communicating with the database.
  */
 
-	$db["enable"] = true;
-	$db["hostname"] = "localhost";
-	$db["port"] = "3306";
-	$db["username"] = "root";
-	$db["password"] = "kof97";
-	$db["database"] = "cat666";
-	$db["dbdriver"] = "mysqli";
-	$db["charset"] = "utf8";
+    $db["enable"] = true;
+    $db["hostname"] = "localhost";
+    $db["port"] = "3306";
+    $db["username"] = "root";
+    $db["password"] = "kof97";
+    $db["database"] = "cat666";
+    $db["dbdriver"] = "mysqli";
+    $db["charset"] = "utf8";
 

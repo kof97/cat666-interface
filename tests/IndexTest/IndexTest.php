@@ -24,9 +24,10 @@ class IndexTest extends PHPUnit_Framework_TestCase
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$res = curl_exec($this->ch);
+		$r = curl_multi_getcontent($this->ch);
 
 		//var_dump($res);
-		$this->assertEmpty($res);
+		$this->assertObjectHasAttribute("mysqli", $r);
 
 	}
 	

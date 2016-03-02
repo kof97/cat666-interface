@@ -58,9 +58,8 @@ class Index extends MrController
     public function search()
     {
         $key = post("key");
-        //$key = "boss";
 
-        if (is_array($key) || empty($key) || trim($key) == "") {
+        if (trim($key) == "") {
             echo "[{\"error\": \"0\"}]";
             return 0;
         }

@@ -61,11 +61,15 @@ class Index extends MrController
         //$key = "boss";
 
         if (is_array($key) || empty($key) || trim($key) == "") {
-            echo "{0}";
+            echo "[{\"error\": \"0\"}]";
             return 0;
         }
 
         $res = $this->model("db")->search($key);
+        if (count($res) == 0) {
+            echo "[{\"error\": \"0\"}]";
+            return 0;
+        }
         $res = json_encode($res);
 
         echo $res;

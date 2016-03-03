@@ -58,13 +58,15 @@ class Index extends MrController
     public function search()
     {
         $key = post("key");
+        //$key = "A";
 
-        if (trim($key) == "") {
+        if (is_array($key) || trim($key) == "") {
             echo "[{\"error\": \"0\"}]";
             return 0;
         }
 
         $res = $this->model("db")->search($key);
+
         if (count($res) == 0) {
             echo "[{\"error\": \"0\"}]";
             return 0;

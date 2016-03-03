@@ -97,17 +97,13 @@ class Db extends MrModel
     public function search($key)
     {   
         $arr = array();
-        $keys = "%" . $key . "%";
 
-        $stmt = $this->db->prepare(" SELECT * FROM videoinfo WHERE description like ? ");
-        $stmt->bind_param("s", $keys);
-        $stmt->execute();
+        $res = $this->db->query(" SELECT * FROM videoinfo WHERE description like '%$key%' ");
 
-        $res = $stmt->get_result();
         while ($r = $res->fetch_assoc()) {
             array_push($arr, $r);
         }
-    
+
         return $arr;
 
     }

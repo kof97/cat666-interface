@@ -28,12 +28,17 @@ function getDb()
     
     if (!empty($db)) {
         if (trim(strtolower($db['enable']))) {
+
             // create db object
             $dbdriver = trim(strtolower($db['dbdriver']));
             if ($dbdriver == "mysqli") {
                 $d =  createMysqli($db);
+                dbClass($dbdriver);
+
             } else if ($dbdriver == "pdo") {
                 $d =  createPdo($db);
+                dbClass($dbdriver);
+
             } else {
                 showError("please check your database.php to ensure that dbdriver is right !");
             }
@@ -80,6 +85,25 @@ function createPdo($db)
     }
 
     return $dbh;
+
+}
+
+/**
+ * create database class
+ * 
+ * @return void
+ */
+function dbClass($dbdriver)
+{
+    if ($dbdriver == "mysqli") {
+        $dbClass = new MrMysqli();   
+    } else if ($dbdriver == "pdo") {
+        $dbClass = new MrPdo();   
+    }
+     
+    if (!Mr::getClass("dbClass")) {
+        Mr::setClass("dbClass", $dbClass);
+    } 
 
 }
 

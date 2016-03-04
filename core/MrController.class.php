@@ -18,7 +18,6 @@ class MrController
     // model list
     static private $_model = array();
 
-
     /** 
      * get model.
      * 
@@ -43,21 +42,22 @@ class MrController
             $modelPath .= DS . $value;
             $fileName = MAIN_PATH . "model" . $modelPath . ".php";
 
-            if (file_exists($fileName)) {
-                importClass($fileName);
-
-                $modelKey = ucfirst($value);
-                if (class_exists($modelKey)) {
-
-                    if (!$this->getModel($modelKey)) {
-                        $this->setModel($modelKey, new $modelKey);
-                    }
-
-                    return $this->getModel($modelKey);
-                }                
-            } else {
+            if (!file_exists($fileName)) {
                 continue;
             }
+
+            importClass($fileName);
+
+            $modelKey = ucfirst($value);
+            if (class_exists($modelKey)) {
+
+                if (!$this->getModel($modelKey)) {
+                    $this->setModel($modelKey, new $modelKey);
+                }
+
+                return $this->getModel($modelKey);
+            }                
+            
         }
 
         showError("couldn't find the model that you requested, please check your model uri !");
@@ -116,21 +116,6 @@ class MrController
     }
 
     /**
-     * get the database object.
-     * 
-     * @return mixed
-     */
-    public function db()
-    {
-        if (Mr::getClass("db")) {
-            return Mr::getClass("db");
-        } else {
-            showError("check your database.php to ensure that you make your db enable !");
-        }
-        
-    }
-
-    /**
      * set model.
      *
      * @param string $key key.
@@ -155,6 +140,38 @@ class MrController
         $modelKey = strtolower($key);
         return isset(self::$_model[$modelKey]) ? self::$_model[$modelKey] : null;
 
+    }
+
+    /**
+     * call db.
+     *
+     * @param string $method method.
+     * @param string $args args.
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        if ($dbClass = Mr::getClass("dbClass")) {
+
+            if (method_exists($dbClass, $method)) {
+                return $dbClass->$method();
+            }
+
+        }
+
+        showError("method dosn't exist ! Please check your conf/database.php !");
+    }
+
+    /**
+     * call db or conn.
+     *
+     * @param string $name method.
+     * @return method
+     */
+    public function __get($name)
+    {
+        return $this->$name();
+        
     }
 
 }

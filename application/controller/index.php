@@ -41,7 +41,7 @@ class Index extends MrController
      */
     public function getCat()
     {
-        $id = uriSegment(3);
+        $id = intval(uriSegment(3));
         $res = $this->model("db")->getCat($id);
 
         $res = json_encode($res);
@@ -71,6 +71,17 @@ class Index extends MrController
             echo "[{\"error\": \"0\"}]";
             return 0;
         }
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function getDanmu()
+    {
+        $id = intval(post("id"));
+
+        $res = $this->model("db")->getDanmu($id);
         $res = json_encode($res);
 
         echo $res;

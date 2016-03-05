@@ -107,5 +107,13 @@ class Db extends MrModel
         return $arr;
 
     }
+
+    public function getDanmu($id)
+    {
+        $sql = "select * from danmu where parentid = $id";
+        $res = $this->conn->query($sql);
+       
+        return $res;
+    }
     
 }

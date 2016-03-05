@@ -20,11 +20,17 @@ For example:
 > http://cat666.com/cat666-interface/index.php/index/getCat/1
 
 ## search
-Get the videos by keywords. The name of the GET is "key".  
+Get the videos by keywords. The name of the POST is "key".  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/search
 
-***if return 0, that means get nothing by GET, please check your input.***
+***if return [{"error": "0"}], that means get nothing by GET, please check your input.***
+
+## getDanmu
+Get the Danmu by video id. The name of the POST is "id".  
+For example:
+> http://cat666.com/cat666-interface/index.php/index/getDanmu
+
 
 # TEST
 In the root path, execute phpunit tests.

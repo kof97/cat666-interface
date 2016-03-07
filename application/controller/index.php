@@ -115,16 +115,13 @@ class Index extends MrController
     	$user = post("user");
     	$password = post("password");
 
-    	$user = "kof";
-    	$password = "kof97";
-
     	$res = $this->model("db")->check($user, $password);
 
     	if (count($res) == 0) {
     		$res = array("error" => "0");
     	}
     	$res = json_encode($res);
-    	
+
     	echo $res;
 
     }

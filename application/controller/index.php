@@ -104,7 +104,6 @@ class Index extends MrController
     public function viewcounts()
     {
     	$id = intval(post("id"));
-    	$id = 30;
 
     	$res = $this->model("db")->viewcounts($id);
 

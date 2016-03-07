@@ -28,6 +28,6 @@ if (!defined('ACC')) exit('this script access allowed');
     $db["username"] = "root";
     $db["password"] = "kof97";
     $db["database"] = "cat666";
-    $db["dbdriver"] = "pdo";
+    $db["dbdriver"] = "mysqli";
     $db["charset"] = "utf8";
 

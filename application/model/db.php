@@ -137,9 +137,9 @@ class Db extends MrModel
         $res = $this->conn->query($sql);
 
         if ($res) {
-            return 1;
+            return "[{\"res\":\"1\"}]";
         }
-        return 0;
+        return "[{\"res\":\"0\"}]";
 
     }
 

@@ -29,7 +29,22 @@ For example:
 ## getDanmu
 Get the Danmu by video id. The name of the POST is "id".  
 For example:
-> http://cat666.com/cat666-interface/index.php/index/getDanmu
+> http://cat666.com/cat666-interface/index.php/index/getDanmu  
+  
+## getCatRecommend
+Get the categroies' recommend videos that order by viewcounts limit 0, 4. The name of the POST is "id".  
+For example:
+> http://cat666.com/cat666-interface/index.php/index/getCatRecommend  
+
+## viewcounts
+Make the viewcounts add one as while as you have already seen the video. The name of the POST is "id".    
+For example:
+> http://cat666.com/cat666-interface/index.php/index/viewcounts  
+
+## check
+Login. Check the user info. The name of the POST is "user" and "password".    
+For example:
+> http://cat666.com/cat666-interface/index.php/index/check
 
 
 # TEST

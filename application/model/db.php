@@ -143,6 +143,26 @@ class Db extends MrModel
 
     }
 
+    public function check($user, $password)
+    {
+
+        $stmt = $this->db->stmt_init();
+        $sql = "select id, user from `user` where user = ? and password = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $user, $password);
+        $stmt->bind_result($id, $name);
+        $stmt->execute();
+
+        $res = array();
+        while($stmt->fetch()){
+            $res = array('id' => $id, 'user' => $name);
+        }
+        $stmt->free_result();
+        $stmt->close();
+
+        return $res;
+    }
+
 
 
 }

@@ -114,6 +114,35 @@ class Db extends MrModel
         $res = $this->conn->query($sql);
        
         return $res;
+
+    }
+
+    public function getCatRecommend($id)
+    {
+        $sql = "select * from videoinfo where fid = $id order by viewcounts desc limit 0, 4";
+        $res = $this->conn->query($sql);
+
+        return $res;
+
     }
     
+    public function viewcounts($id)
+    {
+        $sql = "select viewcounts from videoinfo where id = $id";
+        $count = $this->conn->query($sql, "array");
+
+        $count = intval($count["viewcounts"]) + 1;
+
+        $sql = "update videoinfo set viewcounts = $count where id = $id";
+        $res = $this->conn->query($sql);
+
+        if ($res) {
+            return 1;
+        }
+        return 0;
+
+    }
+
+
+
 }

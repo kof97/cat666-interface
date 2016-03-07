@@ -77,6 +77,7 @@ class Index extends MrController
 
     }
 
+    // get danmu by id
     public function getDanmu()
     {
         $id = intval(post("id"));
@@ -88,7 +89,27 @@ class Index extends MrController
 
     }
 
-    
+    // get cat recommend by fid. limit 0, 4
+    public function getCatRecommend()
+    {
+    	$id = intval(post("id"));
+
+    	$res = $this->model("db")->getCatRecommend($id);
+    	$res = json_encode($res);
+
+    	echo $res;
+
+    }
+
+    public function viewcounts()
+    {
+    	$id = intval(post("id"));
+    	$id = 30;
+
+    	$res = $this->model("db")->viewcounts($id);
+
+    	echo $res;
+    }
 
 }
 

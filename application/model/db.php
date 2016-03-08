@@ -119,8 +119,15 @@ class Db extends MrModel
 
     public function getCatRecommend($id)
     {
-        $sql = "select * from videoinfo where fid = $id order by viewcounts desc limit 0, 4";
+        $sql = "select * from videoinfo where fid = $id order by viewcounts desc limit 0, 8";
         $res = $this->conn->query($sql);
+
+        $count = count($res);
+
+        if ($count < 8) {
+            $sql = "select * from videoinfo order by viewcounts desc limit 0, 8";
+            $res = $this->conn->query($sql);
+        }
 
         return $res;
 

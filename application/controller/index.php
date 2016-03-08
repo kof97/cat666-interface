@@ -113,7 +113,7 @@ class Index extends MrController
     public function check()
     {
     	$user = post("user");
-    	$password = post("password");
+    	$password = md5(post("password"));
 
     	$res = $this->model("db")->check($user, $password);
 

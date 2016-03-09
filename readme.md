@@ -44,7 +44,7 @@ For example:
 ## register
 user register. The name of the POST is "user" and "password".  
 If return "error:0", that means user is null, please check you input.  
-If return "res:0", that means user has already existed.
+If return "res:0", that means user has already existed.  
 If return id and username, it means register successful.  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/register

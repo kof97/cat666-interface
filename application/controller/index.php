@@ -110,6 +110,16 @@ class Index extends MrController
     	echo $res;
     }
 
+    public function register()
+    {
+    	$user = post("user");
+    	$password = md5(post("password"));
+
+    	$res = $this->model("db")->register($user, $password);
+
+    	
+    }
+
     public function check()
     {
     	$user = post("user");

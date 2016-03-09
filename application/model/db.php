@@ -150,6 +150,11 @@ class Db extends MrModel
 
     }
 
+    public function register()
+    {
+        
+    }
+
     public function check($user, $password)
     {
 

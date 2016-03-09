@@ -32,7 +32,7 @@ For example:
 > http://cat666.com/cat666-interface/index.php/index/getDanmu  
   
 ## getCatRecommend
-Get the categroies' recommend videos that order by viewcounts limit 0, 4. The name of the POST is "id".  
+Get the categroies' recommend videos that order by viewcounts limit 0, 8. If the number of the videos is less than 8, then return all videos that ordered by viewcounts limit 0, 8. The name of the POST is "id".  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/getCatRecommend  
 
@@ -43,14 +43,15 @@ For example:
 
 ## register
 user register. The name of the POST is "user" and "password".  
-If return "error:0", that means user is null, please check you input.  
-If return "res:0", that means user has already existed.  
+If return "error : 0", that means user is null, please check you input.  
+If return "res : 0", that means user has already existed.  
 If return id and username, it means register successful.  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/register
 
 ## check
-Login. Check the user info. The name of the POST is "user" and "password".    
+Login. Check the user info. The name of the POST is "user" and "password".   
+If return "error : 0", that means username or password is not right.  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/check
 

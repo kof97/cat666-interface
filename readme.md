@@ -41,6 +41,14 @@ Make the viewcounts add one as while as you have already seen the video. The nam
 For example:
 > http://cat666.com/cat666-interface/index.php/index/viewcounts  
 
+## register
+user register. The name of the POST is "user" and "password".  
+If return "error:0", that means user is null, please check you input.  
+If return "res:0", that means user has already existed.
+If return id and username, it means register successful.  
+For example:
+> http://cat666.com/cat666-interface/index.php/index/register
+
 ## check
 Login. Check the user info. The name of the POST is "user" and "password".    
 For example:

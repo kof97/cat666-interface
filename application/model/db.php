@@ -110,7 +110,7 @@ class Db extends MrModel
 
     public function getDanmu($id)
     {
-        $sql = "select * from danmu where parentid = $id";
+        $sql = "SELECT * from danmu where parentid = $id";
         $res = $this->conn->query($sql);
        
         return $res;
@@ -119,13 +119,13 @@ class Db extends MrModel
 
     public function getCatRecommend($id)
     {
-        $sql = "select * from videoinfo where fid = $id order by viewcounts desc limit 0, 8";
+        $sql = "SELECT * from videoinfo where fid = $id order by viewcounts desc limit 0, 8";
         $res = $this->conn->query($sql);
 
         $count = count($res);
 
         if ($count < 8) {
-            $sql = "select * from videoinfo order by viewcounts desc limit 0, 8";
+            $sql = "SELECT * from videoinfo order by viewcounts desc limit 0, 8";
             $res = $this->conn->query($sql);
         }
 
@@ -135,12 +135,12 @@ class Db extends MrModel
     
     public function viewcounts($id)
     {
-        $sql = "select viewcounts from videoinfo where id = $id";
+        $sql = "SELECT viewcounts from videoinfo where id = $id";
         $count = $this->conn->query($sql, "array");
 
         $count = intval($count["viewcounts"]) + 1;
 
-        $sql = "update videoinfo set viewcounts = $count where id = $id";
+        $sql = "UPDATE videoinfo set viewcounts = $count where id = $id";
         $res = $this->conn->query($sql);
 
         if ($res) {
@@ -150,16 +150,57 @@ class Db extends MrModel
 
     }
 
-    public function register()
+    public function register($user, $password)
     {
+        $stmt = $this->db->stmt_init();
+        $sql = "SELECT id, user from `user` where user = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $user);
+        $stmt->bind_result($id, $name);
+        $stmt->execute();
+
+        $res = array();
+        while($stmt->fetch()){
+            $res = array('id' => $id, 'user' => $name);
+        }
+        $stmt->free_result();
         
+
+        // user exists
+        if (count($res) > 0) {
+            return "[{\"res\":\"0\"}]";
+        }
+
+        // insert
+        $sql = "INSERT into user (`user`, `password`) values (?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $user, $password);
+        $stmt->execute();
+
+        // select
+        $sql = "SELECT id, user from `user` where user = ? and password = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $user, $password);
+        $stmt->bind_result($id, $name);
+        $stmt->execute();
+
+        $res = array();
+        while($stmt->fetch()){
+            $res = array('id' => $id, 'user' => $name);
+        }
+        $stmt->free_result();
+
+        $stmt->close();
+
+        return $res;
+
     }
 
     public function check($user, $password)
     {
 
         $stmt = $this->db->stmt_init();
-        $sql = "select id, user from `user` where user = ? and password = ?";
+        $sql = "SELECT id, user from `user` where user = ? and password = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $user, $password);
         $stmt->bind_result($id, $name);
@@ -173,6 +214,7 @@ class Db extends MrModel
         $stmt->close();
 
         return $res;
+        
     }
 
 

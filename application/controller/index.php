@@ -92,47 +92,49 @@ class Index extends MrController
     // get cat recommend by fid. limit 0, 4
     public function getCatRecommend()
     {
-    	$id = intval(post("id"));
+        $id = intval(post("id"));
 
-    	$res = $this->model("db")->getCatRecommend($id);
-    	$res = json_encode($res);
+        $res = $this->model("db")->getCatRecommend($id);
+        $res = json_encode($res);
 
-    	echo $res;
+        echo $res;
 
     }
 
     public function viewcounts()
     {
-    	$id = intval(post("id"));
+        $id = intval(post("id"));
 
-    	$res = $this->model("db")->viewcounts($id);
+        $res = $this->model("db")->viewcounts($id);
 
-    	echo $res;
+        echo $res;
     }
 
     public function register()
     {
-    	$user = post("user");
-    	$password = md5(post("password"));
+        $user = post("user");
+        $password = md5(post("password"));
 
-    	$res = $this->model("db")->register($user, $password);
+        $res = $this->model("db")->register($user, $password);
+        $res = json_encode($res);
 
-    	
+        echo $res;
+
     }
 
     public function check()
     {
-    	$user = post("user");
-    	$password = md5(post("password"));
+        $user = post("user");
+        $password = md5(post("password"));
 
-    	$res = $this->model("db")->check($user, $password);
+        $res = $this->model("db")->check($user, $password);
 
-    	if (count($res) == 0) {
-    		$res = array("error" => "0");
-    	}
-    	$res = json_encode($res);
+        if (count($res) == 0) {
+            $res = array("error" => "0");
+        }
+        $res = json_encode($res);
 
-    	echo $res;
+        echo $res;
 
     }
 

@@ -47,7 +47,7 @@ class Db extends MrModel
         }
 
         // get 4 videos that order by viewcounts
-        $res = $this->db->query("SELECT * from videoinfo order by viewcounts limit 0, 4");
+        $res = $this->db->query("SELECT * from videoinfo order by viewcounts desc limit 0, 4");
         while ($r = $res->fetch_assoc()) {
             array_push($arr, $r);
         }
@@ -57,7 +57,7 @@ class Db extends MrModel
         // get every categorys top 4
         foreach ($cat as $name => $id) {
 
-            $res = $this->db->query("SELECT * from videoinfo where fid = $id order by viewcounts limit 0, 4");
+            $res = $this->db->query("SELECT * from videoinfo where fid = $id order by viewcounts desc limit 0, 4");
             while ($r = $res->fetch_assoc()) {
                 array_push($arr, $r);
             }

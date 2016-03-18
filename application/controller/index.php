@@ -132,6 +132,9 @@ class Index extends MrController
         $user = post("user");
         $password = md5(post("password"));
 
+        $user = "kof";
+        $password = "kof97";
+
         $res = $this->model("db")->check($user, $password);
 
         if (count($res) == 0) {
@@ -141,6 +144,11 @@ class Index extends MrController
 
         echo $res;
 
+    }
+
+    public function collection()
+    {
+        
     }
 
 }

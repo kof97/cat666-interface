@@ -213,7 +213,17 @@ class Db extends MrModel
         $stmt->free_result();
         $stmt->close();
 
-        return $res;
+        $id = $res['id'];
+
+        $sql = "SELECT * from user where id = $id limit 0, 1";
+        $userinfo = $this->conn->query($sql, "array");
+
+        return $userinfo;
+        
+    }
+
+    public function collection()
+    {
         
     }
 

@@ -244,7 +244,7 @@ class Db extends MrModel
         
     }
 
-    public function collection()
+    public function setCollection()
     {
         
     }

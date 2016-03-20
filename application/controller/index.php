@@ -154,6 +154,14 @@ class Index extends MrController
     {
         $userId = intval(post("userid"));
 
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
         $res = $this->model("db")->getCollection($userId);
 
         if (count($res) == 0) {
@@ -167,6 +175,13 @@ class Index extends MrController
 
     public function setCollection() 
     {
+        $userId = intval(post("userid"));
+        $videoId = intval(post("videoid"));
+
+        $res = $this->model("db")->setCollection($userId, $videoId);
+
+
+
 
     }
 

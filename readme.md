@@ -59,6 +59,10 @@ For example:
 Get the collection by userId. The name of the POST is "userid".   
 > http://cat666.com/cat666-interface/index.php/index/getCollection    
 
+## setCollection  
+Add the user's collection. The name of the POST is "userid" and "videoid".   
+> http://cat666.com/cat666-interface/index.php/index/setCollection      
+
 
 # TEST
 In the root path, execute phpunit tests.

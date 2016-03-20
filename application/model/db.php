@@ -213,12 +213,34 @@ class Db extends MrModel
         $stmt->free_result();
         $stmt->close();
 
+        if (count($res) == 0) {
+            return array();
+        }
+        
         $id = $res['id'];
 
         $sql = "SELECT * from user where id = $id limit 0, 1";
         $userinfo = $this->conn->query($sql, "array");
 
         return $userinfo;
+        
+    }
+
+    public function getCollection($userId)
+    {
+        $sql = "SELECT bmid from mark where mid = $userId order by mtime desc";
+        $res = $this->conn->query($sql);
+
+        $video = array();
+        foreach ($res as $key => $value) {
+            $vid = $value['bmid'];
+            $sql = "SELECT * from videoinfo where id = $vid";
+            $res = $this->conn->query($sql, "array");
+            
+            array_push($video, $res);
+        }
+
+        return $video; 
         
     }
 

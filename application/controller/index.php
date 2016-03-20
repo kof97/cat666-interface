@@ -132,8 +132,12 @@ class Index extends MrController
         $user = post("user");
         $password = md5(post("password"));
 
-        $user = "kof";
-        $password = "kof97";
+        if (trim($user) == "") {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+            return 0;
+        }
 
         $res = $this->model("db")->check($user, $password);
 
@@ -146,9 +150,24 @@ class Index extends MrController
 
     }
 
-    public function collection()
+    public function getCollection()
     {
-        
+        $userId = intval(post("userid"));
+
+        $res = $this->model("db")->getCollection($userId);
+
+        if (count($res) == 0) {
+            $res = array("error" => "0");
+        }
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function setCollection() 
+    {
+
     }
 
 }

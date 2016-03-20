@@ -55,6 +55,10 @@ If return "error : 0", that means username or password is not right.
 For example:
 > http://cat666.com/cat666-interface/index.php/index/check
 
+## getCollection  
+Get the collection by userId. The name of the POST is "userid".   
+> http://cat666.com/cat666-interface/index.php/index/getCollection    
+
 
 # TEST
 In the root path, execute phpunit tests.

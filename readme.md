@@ -69,7 +69,10 @@ If return "succeed : 1", that means collecting succeed.
 
 ## cancelCollection  
 Cancel the user's collection. The name of the POST is "userid" and "videoid".  
-
+If return "error : 0", please check your post.   
+If return "already cancel : 1", that means user has already canceled the collection.   
+If return "failed : 1", that means cancel failed.    
+If return "succeed : 1", that means cancel succeed. 
 > http://cat666.com/cat666-interface/index.php/index/cancelCollection      
 
 

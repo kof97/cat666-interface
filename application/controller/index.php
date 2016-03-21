@@ -195,9 +195,23 @@ class Index extends MrController
 
     public function cancelCollection()
     {
+        $userId = intval(post("userid"));
+        $videoId = intval(post("videoid"));
 
+        if ($userId == 0 || $videoId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->cancelCollection($userId, $videoId);
+        $res = json_encode($res);
+
+        echo $res;
     }
-    
+
 
 }
 

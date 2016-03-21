@@ -67,6 +67,11 @@ If return "failed : 1", that means collecting failed.
 If return "succeed : 1", that means collecting succeed.  
 > http://cat666.com/cat666-interface/index.php/index/setCollection      
 
+## cancelCollection  
+Cancel the user's collection. The name of the POST is "userid" and "videoid".  
+
+> http://cat666.com/cat666-interface/index.php/index/cancelCollection      
+
 
 # TEST
 In the root path, execute phpunit tests.

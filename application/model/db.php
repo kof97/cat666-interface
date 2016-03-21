@@ -361,6 +361,11 @@ class Db extends MrModel
 
     }
 
+    public function cancelCollection()
+    {
+        
+    }
+
 
 
 }

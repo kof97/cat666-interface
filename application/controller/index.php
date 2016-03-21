@@ -193,6 +193,12 @@ class Index extends MrController
 
     }
 
+    public function cancelCollection()
+    {
+
+    }
+    
+
 }
 
 

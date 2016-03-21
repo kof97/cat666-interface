@@ -178,10 +178,18 @@ class Index extends MrController
         $userId = intval(post("userid"));
         $videoId = intval(post("videoid"));
 
+        if ($userId == 0 || $videoId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
         $res = $this->model("db")->setCollection($userId, $videoId);
+        $res = json_encode($res);
 
-
-
+        echo $res;
 
     }
 

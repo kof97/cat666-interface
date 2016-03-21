@@ -60,7 +60,11 @@ Get the collection by userId. The name of the POST is "userid".
 > http://cat666.com/cat666-interface/index.php/index/getCollection    
 
 ## setCollection  
-Add the user's collection. The name of the POST is "userid" and "videoid".   
+Add the user's collection. The name of the POST is "userid" and "videoid".  
+If return "error : 0", please check your post.   
+If return "exist : 1", that means user has already collected the video.   
+If return "failed : 1", that means collecting failed.    
+If return "succeed : 1", that means collecting succeed.  
 > http://cat666.com/cat666-interface/index.php/index/setCollection      
 
 

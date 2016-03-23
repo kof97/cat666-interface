@@ -153,15 +153,15 @@ class Db extends MrModel
     public function register($user, $password)
     {
         $stmt = $this->db->stmt_init();
-        $sql = "SELECT id, user from `user` where user = ?";
+        $sql = "SELECT id, email, uname from `user` where email = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $user);
-        $stmt->bind_result($id, $name);
+        $stmt->bind_result($id, $eamil, $name);
         $stmt->execute();
 
         $res = array();
         while($stmt->fetch()){
-            $res = array('id' => $id, 'user' => $name);
+            $res = array('id' => $id, 'email' => $eamil, 'user' => $name);
         }
         $stmt->free_result();
         
@@ -172,24 +172,23 @@ class Db extends MrModel
         }
 
         // insert
-        $sql = "INSERT into user (`user`, `password`) values (?, ?)";
+        $sql = "INSERT into user (`email`, `password`) values (?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $user, $password);
         $stmt->execute();
 
         // select
-        $sql = "SELECT id, user from `user` where user = ? and password = ?";
+        $sql = "SELECT id, email, uname from `user` where email = ? and password = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $user, $password);
-        $stmt->bind_result($id, $name);
+        $stmt->bind_result($id, $e, $n);
         $stmt->execute();
 
         $res = array();
         while($stmt->fetch()){
-            $res = array('id' => $id, 'user' => $name);
+            $res = array('id' => $id, 'email' => $e, 'user' => $n);
         }
         $stmt->free_result();
-
         $stmt->close();
 
         return $res;
@@ -200,7 +199,7 @@ class Db extends MrModel
     {
 
         $stmt = $this->db->stmt_init();
-        $sql = "SELECT id, user from `user` where user = ? and password = ?";
+        $sql = "SELECT id, email from `user` where email = ? and password = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("ss", $user, $password);
         $stmt->bind_result($id, $name);

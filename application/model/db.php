@@ -249,7 +249,7 @@ class Db extends MrModel
         $sql = "SELECT id from mark where mid = $userId and bmid = $videoId";
         $exist = $this->conn->query($sql, "array");
         if (count($exist) > 0) {
-            return "[{'exist':'1'}]"; 
+            return array("exist" => "1"); 
         }
 
         // user
@@ -349,14 +349,14 @@ class Db extends MrModel
         $up = !$upExp || !$upLevel || !$upMarked;
         if ($user || $video || $up || !$mark) {
             $this->db->roolback();
-            return "[{'failed':'1'}]";
+            return array("failed" => "1");
         } else {
             $this->db->commit();
-            return "[{'successed':'1'}]";
+            return array("successed" => "1");
         }
         $this->db->autocommit(true);
 
-        return "[{'failed':'1'}]";
+        return array("failed" => "1");
 
     }
 
@@ -366,7 +366,7 @@ class Db extends MrModel
         $sql = "SELECT id from mark where mid = $userId and bmid = $videoId";
         $exist = $this->conn->query($sql, "array");
         if (count($exist) == 0) {
-            return "[{'already cancel':'1'}]"; 
+            return array("already cancel" => "1");
         }
 
         // user
@@ -464,14 +464,14 @@ class Db extends MrModel
         $up = !$upExp || !$upLevel || !$upMarked;
         if ($user || $video || $up || !$mark) {
             $this->db->roolback();
-            return "[{'failed':'1'}]";
+            return array("failed" => "1");
         } else {
             $this->db->commit();
-            return "[{'successed':'1'}]";
+            return array("successed" => "1");
         }
         $this->db->autocommit(true);
 
-        return "[{'failed':'1'}]";
+        return array("failed" => "1");
     }
 
 

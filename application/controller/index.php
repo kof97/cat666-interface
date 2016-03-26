@@ -212,6 +212,24 @@ class Index extends MrController
         echo $res;
     }
 
+    public function getVideoInfo()
+    {
+    	$videoId = intval(post("videoid"));
+
+    	if ($videoId == 0) {
+    		$res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+    	}
+
+    	$res = $this->model("db")->getVideoInfo($videoId);
+    	$res = json_encode($res);
+
+    	echo $res;
+    }
+
 
 }
 

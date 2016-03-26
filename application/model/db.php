@@ -474,6 +474,22 @@ class Db extends MrModel
         return array("failed" => "1");
     }
 
+    public function getVideoInfo($vid)
+    {
+        $sql = "SELECT * from videoinfo where id = $vid";
+        $video = $this->conn->query($sql, "array");
+
+        $uid = $video["uid"];
+        $sql = "SELECT * from user where id = $uid";
+        $user = $this->conn->query($sql, "array");
+
+        $res["video"] = $video;
+        $res["user"] = $user;
+        
+        return $res;
+    }
+
+
 
 
 }

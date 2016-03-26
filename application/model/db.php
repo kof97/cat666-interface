@@ -472,6 +472,7 @@ class Db extends MrModel
         $this->db->autocommit(true);
 
         return array("failed" => "1");
+
     }
 
     public function getVideoInfo($vid)
@@ -487,8 +488,71 @@ class Db extends MrModel
         $res["user"] = $user;
         
         return $res;
+
     }
 
+    public function alterNick($id, $nick)
+    {
+        $stmt = $this->db->stmt_init();
+        $sql = "UPDATE user set uname = ? where id = $id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $nick);
+
+        $res = $stmt->execute();
+        $stmt->close();
+
+        if (!$res) {
+            return array("failed" => "1");
+        }
+        return array("successed" => "1");
+
+    }
+
+    public function alterSex($id, $sex)
+    {
+        $sql = "UPDATE user set sex = $sex where id = $id";
+        $res = $this->conn->query($sql);
+
+        if (!$res) {
+            return array("failed" => "1");
+        }
+        return array("successed" => "1");
+
+    }
+
+    public function alterBirth($id, $birth)
+    {
+        $stmt = $this->db->stmt_init();
+        $sql = "UPDATE user set birth = ? where id = $id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $birth);
+
+        $res = $stmt->execute();
+        $stmt->close();
+
+        if (!$res) {
+            return array("failed" => "1");
+        }
+        return array("successed" => "1");
+
+    }
+
+    public function alterSignature($id, $signature)
+    {
+        $stmt = $this->db->stmt_init();
+        $sql = "UPDATE user set info = ? where id = $id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $signature);
+
+        $res = $stmt->execute();
+        $stmt->close();
+
+        if (!$res) {
+            return array("failed" => "1");
+        }
+        return array("successed" => "1");
+
+    }
 
 
 

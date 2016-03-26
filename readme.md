@@ -80,7 +80,38 @@ Get video infomation including video and user. The name of the POST is "videoid"
 If return "error : 0", please check your post.   
 > http://cat666.com/cat666-interface/index.php/index/getVideoInfo  
 
-   
+## alterNick  
+Change the user's nick name. The name of the POST is "userid" and "nick".  
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/alterNick  
+
+## alterSex  
+Change the user's sex. The name of the POST is "userid" and "sex".  
+The sex accept 0 (man) or 1 (woman); 
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/alterSex      
+
+## alterBirth  
+Change the user's birth. The name of the POST is "userid" and "birth".  
+The birth accept that such as `2015/01/01`; 
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/alterBirth    
+
+## alterSignature  
+Change the user's signature. The name of the POST is "userid" and "signature".  
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/alterSignature    
+
+
+
 
 # TEST
 In the root path, execute phpunit tests.

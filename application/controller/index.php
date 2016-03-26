@@ -214,21 +214,108 @@ class Index extends MrController
 
     public function getVideoInfo()
     {
-    	$videoId = intval(post("videoid"));
+        $videoId = intval(post("videoid"));
 
-    	if ($videoId == 0) {
-    		$res = array("error" => "0");
+        if ($videoId == 0) {
+            $res = array("error" => "0");
             $res = json_encode($res);
             echo $res;
 
             return false;
-    	}
 
-    	$res = $this->model("db")->getVideoInfo($videoId);
-    	$res = json_encode($res);
+        }
 
-    	echo $res;
+        $res = $this->model("db")->getVideoInfo($videoId);
+        $res = json_encode($res);
+
+        echo $res;
+    
     }
+
+    public function alterNick()
+    {
+        $userId = intval(post("userid"));
+        $nick = trim(post("nick"));
+
+        if ($userId == 0 || $nick == "") {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->alterNick($userId, $nick);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function alterSex()
+    {
+        $userId = intval(post("userid"));
+        $sex = intval(post("sex"));
+
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->alterSex($userId, $sex);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function alterBirth()
+    {
+        $userId = intval(post("userid"));
+        $birth = trim(post("birth"));
+
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->alterBirth($userId, $birth);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function alterSignature()
+    {
+        $userId = intval(post("userid"));
+        $signature = trim(post("signature"));
+
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->alterSignature($userId, $signature);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
 
 
 }

@@ -120,7 +120,7 @@ If return "succeed : 1", that means changed succeed.
 ## sendDanmu  
 Change the user's password. The name of the POST is "userid", "videoid" and "danmu".  
 The `danmu` accept that such as   
-`{ "text":"梦有形，心相伴！","color":"#f01f5a","size":"1","position":"0","time":3}`; 
+`{ "text":"梦有形，心相伴！","color":"#f01f5a","size":"1","position":"0","time":3}`;  
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
 If return "succeed : 1", that means changed succeed. 

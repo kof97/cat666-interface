@@ -316,6 +316,51 @@ class Index extends MrController
 
     }
 
+    public function alterPassword()
+    {
+        $userId = intval(post("userid"));
+        $password = trim(post("password"));
+
+        if ($userId == 0 || $password == "") {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $password = md5($password);
+        $res = $this->model("db")->alterPassword($userId, $password);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function getFollow()
+    {
+    	$userId = intval(post("userid"));
+
+    	if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->getFollow($userId);
+
+        if (count($res) == 0) {
+            $res = array("error" => "0");
+        }
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
 
 
 }

@@ -110,6 +110,14 @@ If return "failed : 1", that means changed failed.
 If return "succeed : 1", that means changed succeed. 
 > http://cat666.com/cat666-interface/index.php/index/alterSignature    
 
+## alterPassword  
+Change the user's password. The name of the POST is "userid" and "password".  
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/alterPassword   
+
+
 
 
 

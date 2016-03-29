@@ -554,6 +554,43 @@ class Db extends MrModel
 
     }
 
+    public function alterPassword($id, $password)
+    {
+        $stmt = $this->db->stmt_init();
+        $sql = "UPDATE user set password = ? where id = $id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $password);
+
+        $res = $stmt->execute();
+        $stmt->close();
+
+        if (!$res) {
+            return array("failed" => "1");
+        }
+        return array("successed" => "1");
+
+    }
+
+    public function getFollow($id)
+    {
+        /*
+        $sql = "SELECT bcid from concern where cid = $id order by ctime desc";
+        $res = $this->conn->query($sql);
+
+        $user = array();
+        foreach ($res as $key => $value) {
+            $uid = $value['bcid'];
+            $sql = "SELECT * from user where id = $uid";
+            $res = $this->conn->query($sql, "array");
+            
+            array_push($user, $res);
+        }
+
+        var_dump($user);
+        return $user; 
+*/
+    }
+
 
 
 }

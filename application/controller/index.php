@@ -338,6 +338,27 @@ class Index extends MrController
 
     }
 
+    public function sendDanmu()
+    {
+    	$userId = intval(post("userid"));
+    	$videoId = intval(post("videoid"));
+    	$danmu = trim(post("danmu"));
+
+    	if ($userId == 0 || $danmu == "") {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->sendDanmu($userId, $videoId, $danmu);
+        $res = json_encode($res);
+        echo $res;
+
+    }
+
     public function getFollow()
     {
     	$userId = intval(post("userid"));

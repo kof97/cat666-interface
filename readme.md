@@ -89,7 +89,7 @@ If return "succeed : 1", that means changed succeed.
 
 ## alterSex  
 Change the user's sex. The name of the POST is "userid" and "sex".  
-The sex accept 0 (man) or 1 (woman); 
+The `sex` accept 0 (man) or 1 (woman); 
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
 If return "succeed : 1", that means changed succeed. 
@@ -97,7 +97,7 @@ If return "succeed : 1", that means changed succeed.
 
 ## alterBirth  
 Change the user's birth. The name of the POST is "userid" and "birth".  
-The birth accept that such as `2015/01/01`; 
+The `birth` accept that such as `2015/01/01`; 
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
 If return "succeed : 1", that means changed succeed. 
@@ -117,7 +117,14 @@ If return "failed : 1", that means changed failed.
 If return "succeed : 1", that means changed succeed. 
 > http://cat666.com/cat666-interface/index.php/index/alterPassword   
 
-
+## sendDanmu  
+Change the user's password. The name of the POST is "userid", "videoid" and "danmu".  
+The `danmu` accept that such as   
+`{ "text":"梦有形，心相伴！","color":"#f01f5a","size":"1","position":"0","time":3}`; 
+If return "error : 0", please check your post.    
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed. 
+> http://cat666.com/cat666-interface/index.php/index/sendDanmu   
 
 
 

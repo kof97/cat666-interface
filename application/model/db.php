@@ -334,7 +334,7 @@ class Db extends MrModel
         $sql = "UPDATE user set ulevel = $level where id = $uid";
         $upLevel = $this->conn->query($sql);
 
-        $sql = "UPDATE user set marked = marked + 1 where id = $userId";
+        $sql = "UPDATE user set marked = marked + 1 where id = $uid";
         $upMarked = $this->conn->query($sql);
 
         // mark 
@@ -348,7 +348,7 @@ class Db extends MrModel
         $video = !$videoSword || !$videoLevel || !$videoMark;
         $up = !$upExp || !$upLevel || !$upMarked;
         if ($user || $video || $up || !$mark) {
-            $this->db->roolback();
+            $this->db->rollback();
             return array("failed" => "1");
         } else {
             $this->db->commit();
@@ -451,7 +451,7 @@ class Db extends MrModel
         $sql = "UPDATE user set ulevel = $level where id = $uid";
         $upLevel = $this->conn->query($sql);
 
-        $sql = "UPDATE user set marked = marked - 1 where id = $userId";
+        $sql = "UPDATE user set marked = marked - 1 where id = $uid";
         $upMarked = $this->conn->query($sql);
 
         // mark 
@@ -463,7 +463,7 @@ class Db extends MrModel
         $video = !$videoSword || !$videoLevel || !$videoMark;
         $up = !$upExp || !$upLevel || !$upMarked;
         if ($user || $video || $up || !$mark) {
-            $this->db->roolback();
+            $this->db->rollback();
             return array("failed" => "1");
         } else {
             $this->db->commit();
@@ -568,6 +568,114 @@ class Db extends MrModel
             return array("failed" => "1");
         }
         return array("successed" => "1");
+
+    }
+
+    public function sendDanmu($userId, $videoId, $danmu)
+    {   
+        $time = date("Y-m-d h:i:s");
+        $sql = "INSERT into `danmu` (`parentid`, `danmu`, `pid`, `posttime`) values ($videoId, '$danmu', $userId, '$time')";
+        $insert = $this->conn->query($sql);
+
+        // user
+        $sql = "UPDATE user set experience = experience + 3 where id = $userId";
+        $userExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $userId";
+        $experience1 = $this->conn->query($sql, "array");
+        if ($experience1["experience"] >= 0 && $experience1["experience"] < 66) {
+            $level = 0;
+        } else if ($experience1["experience"] >= 66 && $experience1["experience"] < 666) {
+            $level = 1;
+        } else if ($experience1["experience"] >= 666 && $experience1["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience1["experience"] >= 2666 && $experience1["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience1["experience"] >= 6666 && $experience1["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience1["experience"] >= 26666 && $experience1["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience1["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $userId";
+        $userLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set alldanmu = alldanmu + 1 where id = $userId";
+        $userDanmu = $this->conn->query($sql);
+
+        // video
+        $sql = "UPDATE videoinfo set sword = sword + 3 where id = $videoId";
+        $videoSword = $this->conn->query($sql);
+
+        $sql = "UPDATE videoinfo set videodanmu = videodanmu + 1 where id = $videoId";
+        $videoDanmu = $this->conn->query($sql);
+
+        $sql = "SELECT sword from videoinfo where id = $videoId";
+        $sword1 = $this->conn->query($sql, "array");
+        if ($sword1["sword"] >= 0 && $sword1["sword"] < 50) {
+            $level = 0;
+        } else if ($sword1["sword"] >= 50 && $sword1["sword"] < 200) {
+            $level = 1;
+        } else if ($sword1["sword"] >= 200 && $sword1["sword"] < 800) {
+            $level = 2;
+        } else if ($sword1["sword"] >= 800 && $sword1["sword"] < 2000) {
+            $level = 3;
+        } else if ($sword1["sword"] >= 2000 && $sword1["sword"] < 5000) {
+            $level = 4;
+        } else if ($sword1["sword"] >= 5000 && $sword1["sword"] < 10000) {
+            $level = 5;
+        } else if ($sword1["sword"] >= 10000) {
+            $level = 6;
+        }
+        $sql = "UPDATE videoinfo set videolevel = $level where id = $videoId";
+        $videoLevel = $this->conn->query($sql);
+
+        // up
+        $sql = "SELECT uid from videoinfo where id = $videoId";
+        $uid = $this->conn->query($sql, "array");
+        $uid = $uid["uid"];
+
+        $sql = "UPDATE user set experience = experience + 3 where id = $uid";
+        $upExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $uid";
+        $experience2 = $this->conn->query($sql, "array");
+        if ($experience2["experience"] >= 0 && $experience2["experience"] < 66) {
+            $level = 0;
+        } else if ($experience2["experience"] >= 66 && $experience2["experience"] < 666) {
+            $level = 1;
+        } else if ($experience2["experience"] >= 666 && $experience2["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience2["experience"] >= 2666 && $experience2["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience2["experience"] >= 6666 && $experience2["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience2["experience"] >= 26666 && $experience2["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience2["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $uid";
+        $upLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set allbedanmu = allbedanmu + 1 where id = $uid";
+        $upDanmu = $this->conn->query($sql);
+
+        $this->db->autocommit(false);
+        $user = !$userExp || !$userLevel || !$userDanmu;
+        $video = !$videoSword || !$videoLevel || !$videoDanmu;
+        $up = !$upExp || !$upLevel || !$upDanmu;
+        if ($user || $video || $up || !$insert) {
+            $this->db->rollback();
+            return array("failed" => "1");
+        } else {
+            $this->db->commit();
+            return array("successed" => "1");
+        }
+        $this->db->autocommit(true);
+
+        return array("failed" => "1");
 
     }
 

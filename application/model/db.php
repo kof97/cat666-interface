@@ -681,7 +681,6 @@ class Db extends MrModel
 
     public function getFollow($id)
     {
-        /*
         $sql = "SELECT bcid from concern where cid = $id order by ctime desc";
         $res = $this->conn->query($sql);
 
@@ -694,9 +693,181 @@ class Db extends MrModel
             array_push($user, $res);
         }
 
-        var_dump($user);
         return $user; 
-*/
+
+    }
+
+    public function setFollow($userId, $followId)
+    {	
+    	// exist
+        $sql = "SELECT id from concern where cid = $userId and bcid = $followId";
+        $exist = $this->conn->query($sql, "array");
+        if (count($exist) > 0) {
+            return array("exist" => "1"); 
+        }
+
+        // insert concern
+    	$time = date("Y-m-d h:i:s");
+        $sql = "INSERT into `concern` (`cid`, `bcid`, `ctime`) values ($userId, $followId, '$time')";
+        $insert = $this->conn->query($sql);
+
+        // user
+        $sql = "UPDATE user set experience = experience + 20 where id = $userId";
+        $userExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $userId";
+        $experience1 = $this->conn->query($sql, "array");
+        if ($experience1["experience"] >= 0 && $experience1["experience"] < 66) {
+            $level = 0;
+        } else if ($experience1["experience"] >= 66 && $experience1["experience"] < 666) {
+            $level = 1;
+        } else if ($experience1["experience"] >= 666 && $experience1["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience1["experience"] >= 2666 && $experience1["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience1["experience"] >= 6666 && $experience1["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience1["experience"] >= 26666 && $experience1["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience1["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $userId";
+        $userLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set follow = follow + 1 where id = $userId";
+        $userFollow = $this->conn->query($sql);
+
+        // up
+        $uid = $followId;
+
+        $sql = "UPDATE user set experience = experience + 50 where id = $uid";
+        $upExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $uid";
+        $experience2 = $this->conn->query($sql, "array");
+        if ($experience2["experience"] >= 0 && $experience2["experience"] < 66) {
+            $level = 0;
+        } else if ($experience2["experience"] >= 66 && $experience2["experience"] < 666) {
+            $level = 1;
+        } else if ($experience2["experience"] >= 666 && $experience2["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience2["experience"] >= 2666 && $experience2["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience2["experience"] >= 6666 && $experience2["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience2["experience"] >= 26666 && $experience2["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience2["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $uid";
+        $upLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set fans = fans + 1 where id = $uid";
+        $upFuns = $this->conn->query($sql);
+
+        // transaction
+        $this->db->autocommit(false);
+        $user = !$userExp || !$userLevel || !$userFollow;
+        $up = !$upExp || !$upLevel || !$upFuns;
+        if ($user || $up || !$insert) {
+            $this->db->rollback();
+            return array("failed" => "1");
+        } else {
+            $this->db->commit();
+            return array("successed" => "1");
+        }
+        $this->db->autocommit(true);
+
+        return array("failed" => "1");
+
+    }
+
+    public function cancelFollow($userId, $followId)
+    {	
+    	// exist
+        $sql = "SELECT id from concern where cid = $userId and bcid = $followId";
+        $exist = $this->conn->query($sql, "array");
+        if (count($exist) == 0) {
+            return array("already cancel" => "1"); 
+        }
+
+        // delete concern
+    	$sql = "DELETE from concern where cid = $userId and bcid = $followId";
+        $delete = $this->conn->query($sql);
+
+        // user
+        $sql = "UPDATE user set experience = experience - 20 where id = $userId";
+        $userExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $userId";
+        $experience1 = $this->conn->query($sql, "array");
+        if ($experience1["experience"] >= 0 && $experience1["experience"] < 66) {
+            $level = 0;
+        } else if ($experience1["experience"] >= 66 && $experience1["experience"] < 666) {
+            $level = 1;
+        } else if ($experience1["experience"] >= 666 && $experience1["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience1["experience"] >= 2666 && $experience1["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience1["experience"] >= 6666 && $experience1["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience1["experience"] >= 26666 && $experience1["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience1["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $userId";
+        $userLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set follow = follow - 1 where id = $userId";
+        $userFollow = $this->conn->query($sql);
+
+        // up
+        $uid = $followId;
+
+        $sql = "UPDATE user set experience = experience - 50 where id = $uid";
+        $upExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $uid";
+        $experience2 = $this->conn->query($sql, "array");
+        if ($experience2["experience"] >= 0 && $experience2["experience"] < 66) {
+            $level = 0;
+        } else if ($experience2["experience"] >= 66 && $experience2["experience"] < 666) {
+            $level = 1;
+        } else if ($experience2["experience"] >= 666 && $experience2["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience2["experience"] >= 2666 && $experience2["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience2["experience"] >= 6666 && $experience2["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience2["experience"] >= 26666 && $experience2["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience2["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $uid";
+        $upLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set fans = fans - 1 where id = $uid";
+        $upFuns = $this->conn->query($sql);
+
+        // transaction
+        $this->db->autocommit(false);
+        $user = !$userExp || !$userLevel || !$userFollow;
+        $up = !$upExp || !$upLevel || !$upFuns;
+        if ($user || $up || !$delete) {
+            $this->db->rollback();
+            return array("failed" => "1");
+        } else {
+            $this->db->commit();
+            return array("successed" => "1");
+        }
+        $this->db->autocommit(true);
+
+        return array("failed" => "1");
+
     }
 
 

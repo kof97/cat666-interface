@@ -84,37 +84,37 @@ If return "error : 0", please check your post.
 Change the user's nick name. The name of the POST is "userid" and "nick".  
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
+If return "succeed : 1", that means changed succeed.   
 > http://cat666.com/cat666-interface/index.php/index/alterNick  
 
 ## alterSex  
 Change the user's sex. The name of the POST is "userid" and "sex".  
-The `sex` accept 0 (man) or 1 (woman); 
+The `sex` accept 0 (man) or 1 (woman);   
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
-> http://cat666.com/cat666-interface/index.php/index/alterSex      
+If return "succeed : 1", that means changed succeed.  
+> http://cat666.com/cat666-interface/index.php/index/alterSex       
 
 ## alterBirth  
 Change the user's birth. The name of the POST is "userid" and "birth".  
-The `birth` accept that such as `2015/01/01`; 
+The `birth` accept that such as `2015/01/01`;   
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
+If return "succeed : 1", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/alterBirth    
 
 ## alterSignature  
 Change the user's signature. The name of the POST is "userid" and "signature".  
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
+If return "succeed : 1", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/alterSignature    
 
 ## alterPassword  
 Change the user's password. The name of the POST is "userid" and "password".  
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
+If return "succeed : 1", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/alterPassword   
 
 ## sendDanmu  
@@ -123,8 +123,31 @@ The `danmu` accept that such as
 `{ "text":"梦有形，心相伴！","color":"#f01f5a","size":"1","position":"0","time":3}`;  
 If return "error : 0", please check your post.    
 If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed. 
+If return "succeed : 1", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/sendDanmu   
+
+## getFollow  
+Get the the users that the user followed. The name of the POST is "userid".  
+If return "error : 0", please check your post.    
+If return "nothing : 1", that means not followed users.    
+> http://cat666.com/cat666-interface/index.php/index/getFollow     
+
+## setFollow  
+Add the user's concerned user. The name of the POST is "userid" and "followid".  
+If return "error : 0", please check your post.   
+If return "exist : 1", that means user has already concerned the user.   
+If return "failed : 1", that means concerned failed.    
+If return "succeed : 1", that means concerned succeed.  
+> http://cat666.com/cat666-interface/index.php/index/setFollow      
+
+## cancelCollection  
+Cancel the user's concern. The name of the POST is "userid" and "followid".  
+If return "error : 0", please check your post.   
+If return "already cancel : 1", that means user has already canceled this concern.   
+If return "failed : 1", that means cancel failed.    
+If return "succeed : 1", that means cancel succeed. 
+> http://cat666.com/cat666-interface/index.php/index/cancelCollection 
+
 
 
 

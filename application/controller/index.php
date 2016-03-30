@@ -374,8 +374,54 @@ class Index extends MrController
         $res = $this->model("db")->getFollow($userId);
 
         if (count($res) == 0) {
-            $res = array("error" => "0");
+            $res = array("nothing" => "1");
         }
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function setFollow()
+    {
+    	$userId = intval(post("userid"));
+    	$followId = intval(post("followid"));
+
+    	$userId = 27;
+    	$followId = 32;
+
+    	if ($userId == 0 || $followId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->setFollow($userId, $followId);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+    public function cancelFollow()
+    {
+    	$userId = intval(post("userid"));
+    	$followId = intval(post("followid"));
+
+    	$userId = 27;
+    	$followId = 32;
+
+    	if ($userId == 0 || $followId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->cancelFollow($userId, $followId);
         $res = json_encode($res);
 
         echo $res;

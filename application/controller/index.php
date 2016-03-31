@@ -462,6 +462,26 @@ class Index extends MrController
 
     }
 
+    public function alterPic()
+    {
+        $userId = intval(post("userid"));
+        $signature = trim(post("signature"));
+
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+
+        }
+
+        $res = $this->model("db")->alterPic($userId);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
 
 
 

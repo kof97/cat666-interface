@@ -996,6 +996,11 @@ class Db extends MrModel
 
     }
 
+    public function alterPic($userId)
+    {
+
+    }
+
 
 
 }

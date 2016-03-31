@@ -428,10 +428,6 @@ class Index extends MrController
     	$videoId = intval(post("videoid"));
     	$cat = intval(post("cat"));
 
-    	$userId = 17;
-    	$videoId = 30;
-    	$cat = 24;
-
     	if ($userId == 0 || $videoId == 0 || $cat == 0) {
             $res = array("error" => "0");
             $res = json_encode($res);

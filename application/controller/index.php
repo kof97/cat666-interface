@@ -443,6 +443,24 @@ class Index extends MrController
 
     }
 
+    public function getVideoById()
+    {
+        $userId = intval(post("userid"));
+
+        if ($userId == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->getVideoById($userId);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
 
 
 

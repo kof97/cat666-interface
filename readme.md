@@ -156,6 +156,10 @@ If return "failed : 1", that means feed failed.
 If return "succeed : 1", that means feed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/catFood   
 
+## getVideoById  
+Get the videos by userid. The name of the POST is "userid".  
+If return "error : 0", please check your post.   
+> http://cat666.com/cat666-interface/index.php/index/getVideoById   
 
 
 

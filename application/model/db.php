@@ -987,6 +987,15 @@ class Db extends MrModel
 
     }
 
+    public function getVideoById($userId)
+    {
+        $sql = "SELECT * from videoinfo where uid = $userId order by uptime desc";
+        $res = $this->conn->query($sql, "arrayAll");
+
+        return $res;
+
+    }
+
 
 
 }

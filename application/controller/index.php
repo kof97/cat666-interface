@@ -387,9 +387,6 @@ class Index extends MrController
     	$userId = intval(post("userid"));
     	$followId = intval(post("followid"));
 
-    	$userId = 27;
-    	$followId = 32;
-
     	if ($userId == 0 || $followId == 0) {
             $res = array("error" => "0");
             $res = json_encode($res);
@@ -409,9 +406,6 @@ class Index extends MrController
     {
     	$userId = intval(post("userid"));
     	$followId = intval(post("followid"));
-
-    	$userId = 27;
-    	$followId = 32;
 
     	if ($userId == 0 || $followId == 0) {
             $res = array("error" => "0");

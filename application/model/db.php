@@ -870,6 +870,123 @@ class Db extends MrModel
 
     }
 
+    public function catFood($userId, $videoId, $cat)
+    {	
+    	// exist
+        $sql = "SELECT catfood from user where id = $userId";
+        $food = $this->conn->query($sql, "array");
+        if ($food['catfood'] < $cat) {
+            return array("you don't have enough cat food" => "1"); 
+        }
+
+    	$expUser = 5 * $cat;
+    	$swordVideo = 5 * $cat;
+    	$expUp = 5 * $cat;
+    	$foodUp = intval(0.7 * $cat);  	
+
+        // user
+        $sql = "UPDATE user set experience = experience + $expUser where id = $userId";
+        $userExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $userId";
+        $experience1 = $this->conn->query($sql, "array");
+        if ($experience1["experience"] >= 0 && $experience1["experience"] < 66) {
+            $level = 0;
+        } else if ($experience1["experience"] >= 66 && $experience1["experience"] < 666) {
+            $level = 1;
+        } else if ($experience1["experience"] >= 666 && $experience1["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience1["experience"] >= 2666 && $experience1["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience1["experience"] >= 6666 && $experience1["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience1["experience"] >= 26666 && $experience1["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience1["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $userId";
+        $userLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set catfood = catfood - $cat where id = $userId";
+        $userFood = $this->conn->query($sql);
+
+        // video
+        $sql = "UPDATE videoinfo set sword = sword + $swordVideo where id = $videoId";
+        $videoSword = $this->conn->query($sql);
+
+        $sql = "UPDATE videoinfo set catfood = catfood + $cat where id = $videoId";
+        $videoFood = $this->conn->query($sql);
+
+        $sql = "SELECT sword from videoinfo where id = $videoId";
+        $sword1 = $this->conn->query($sql, "array");
+        if ($sword1["sword"] >= 0 && $sword1["sword"] < 50) {
+            $level = 0;
+        } else if ($sword1["sword"] >= 50 && $sword1["sword"] < 200) {
+            $level = 1;
+        } else if ($sword1["sword"] >= 200 && $sword1["sword"] < 800) {
+            $level = 2;
+        } else if ($sword1["sword"] >= 800 && $sword1["sword"] < 2000) {
+            $level = 3;
+        } else if ($sword1["sword"] >= 2000 && $sword1["sword"] < 5000) {
+            $level = 4;
+        } else if ($sword1["sword"] >= 5000 && $sword1["sword"] < 10000) {
+            $level = 5;
+        } else if ($sword1["sword"] >= 10000) {
+            $level = 6;
+        }
+        $sql = "UPDATE videoinfo set videolevel = $level where id = $videoId";
+        $videoLevel = $this->conn->query($sql);
+
+        // up
+        $sql = "SELECT uid from videoinfo where id = $videoId";
+        $uid = $this->conn->query($sql, "array");
+        $uid = $uid["uid"];
+
+        $sql = "UPDATE user set experience = experience + $expUp where id = $uid";
+        $upExp = $this->conn->query($sql);
+
+        $sql = "SELECT experience from user where id = $uid";
+        $experience2 = $this->conn->query($sql, "array");
+        if ($experience2["experience"] >= 0 && $experience2["experience"] < 66) {
+            $level = 0;
+        } else if ($experience2["experience"] >= 66 && $experience2["experience"] < 666) {
+            $level = 1;
+        } else if ($experience2["experience"] >= 666 && $experience2["experience"] < 2666) {
+            $level = 2;
+        } else if ($experience2["experience"] >= 2666 && $experience2["experience"] < 6666) {
+            $level = 3;
+        } else if ($experience2["experience"] >= 6666 && $experience2["experience"] < 26666) {
+            $level = 4;
+        } else if ($experience2["experience"] >= 26666 && $experience2["experience"] < 66666) {
+            $level = 5;
+        } else if ($experience2["experience"] >= 66666) {
+            $level = 6;
+        }
+        $sql = "UPDATE user set ulevel = $level where id = $uid";
+        $upLevel = $this->conn->query($sql);
+
+        $sql = "UPDATE user set catfood = catfood + $foodUp where id = $uid";
+        $upFood = $this->conn->query($sql);
+
+        // transaction
+        $this->db->autocommit(false);
+        $user = !$userExp || !$userLevel || !$userFood;
+        $video = !$videoSword || !$videoLevel || !$videoFood;
+        $up = !$upExp || !$upLevel || !$upFood;
+        if ($user || $up || $video) {
+            $this->db->rollback();
+            return array("failed" => "1");
+        } else {
+            $this->db->commit();
+            return array("successed" => "1");
+        }
+        $this->db->autocommit(true);
+
+        return array("failed" => "1");
+
+    }
+
 
 
 }

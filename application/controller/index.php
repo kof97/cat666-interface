@@ -422,6 +422,33 @@ class Index extends MrController
 
     }
 
+    public function catFood()
+    {
+    	$userId = intval(post("userid"));
+    	$videoId = intval(post("videoid"));
+    	$cat = intval(post("cat"));
+
+    	$userId = 17;
+    	$videoId = 30;
+    	$cat = 24;
+
+    	if ($userId == 0 || $videoId == 0 || $cat == 0) {
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+
+            return false;
+        }
+
+        $res = $this->model("db")->catFood($userId, $videoId, $cat);
+        $res = json_encode($res);
+
+        echo $res;
+
+    }
+
+
+
 
 
 }

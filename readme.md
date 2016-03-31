@@ -148,6 +148,16 @@ If return "failed : 1", that means cancel failed.
 If return "succeed : 1", that means cancel succeed. 
 > http://cat666.com/cat666-interface/index.php/index/cancelFollow 
 
+## catFood  
+Feed the cat food. The name of the POST is "userid" "videoid" and "cat".  
+If return "error : 0", please check your post.   
+If return "you don't have enough cat food : 1", that means user didn't have enough cat food.   
+If return "failed : 1", that means feed failed.    
+If return "succeed : 1", that means feed succeed.  
+> http://cat666.com/cat666-interface/index.php/index/catFood   
+
+
+
 
 
 

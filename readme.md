@@ -161,7 +161,10 @@ Get the videos by userid. The name of the POST is "userid".
 If return "error : 0", please check your post.   
 > http://cat666.com/cat666-interface/index.php/index/getVideoById   
 
-
+## alterPic  
+Get the videos by userid. The name of the POST is "pic".  
+If return "error : 0", please check your post.   
+> http://cat666.com/cat666-interface/index.php/index/alterPic   
 
 
 

@@ -467,10 +467,8 @@ class Index extends MrController
         $userId = intval(post("userid"));
         $pic = trim(post("pic"));
 
-        $pic = file_get_contents("E:\picture\\001.jpg");
-
-
-        file_put_contents("E:\\000\\text.jpg", $pic);
+        file_put_contents("/var/www/cat666-interface/application/test", $pic);
+        file_put_contents("/var/www/cat666-interface/application/tes.jpg", $pic);
 
 
         if ($userId == 0) {

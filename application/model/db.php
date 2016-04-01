@@ -698,8 +698,8 @@ class Db extends MrModel
     }
 
     public function setFollow($userId, $followId)
-    {	
-    	// exist
+    {   
+        // exist
         $sql = "SELECT id from concern where cid = $userId and bcid = $followId";
         $exist = $this->conn->query($sql, "array");
         if (count($exist) > 0) {
@@ -707,7 +707,7 @@ class Db extends MrModel
         }
 
         // insert concern
-    	$time = date("Y-m-d h:i:s");
+        $time = date("Y-m-d h:i:s");
         $sql = "INSERT into `concern` (`cid`, `bcid`, `ctime`) values ($userId, $followId, '$time')";
         $insert = $this->conn->query($sql);
 
@@ -785,8 +785,8 @@ class Db extends MrModel
     }
 
     public function cancelFollow($userId, $followId)
-    {	
-    	// exist
+    {   
+        // exist
         $sql = "SELECT id from concern where cid = $userId and bcid = $followId";
         $exist = $this->conn->query($sql, "array");
         if (count($exist) == 0) {
@@ -794,7 +794,7 @@ class Db extends MrModel
         }
 
         // delete concern
-    	$sql = "DELETE from concern where cid = $userId and bcid = $followId";
+        $sql = "DELETE from concern where cid = $userId and bcid = $followId";
         $delete = $this->conn->query($sql);
 
         // user
@@ -871,18 +871,18 @@ class Db extends MrModel
     }
 
     public function catFood($userId, $videoId, $cat)
-    {	
-    	// exist
+    {   
+        // exist
         $sql = "SELECT catfood from user where id = $userId";
         $food = $this->conn->query($sql, "array");
         if ($food['catfood'] < $cat) {
             return array("you don't have enough cat food" => "1"); 
         }
 
-    	$expUser = 5 * $cat;
-    	$swordVideo = 5 * $cat;
-    	$expUp = 5 * $cat;
-    	$foodUp = intval(0.7 * $cat);  	
+        $expUser = 5 * $cat;
+        $swordVideo = 5 * $cat;
+        $expUp = 5 * $cat;
+        $foodUp = intval(0.7 * $cat);   
 
         // user
         $sql = "UPDATE user set experience = experience + $expUser where id = $userId";
@@ -999,24 +999,26 @@ class Db extends MrModel
     public function alterPic($userId, $tmp_name)
     {
         $path = "/var/www/uploads/headpic/";
-        $name = date("Ymdhis") . "_thumb" . $userId . ".jpg";
+        $name = date("Ymdhis") . "_phone" . $userId . ".jpg";
 
         $url = $path . $name;
 
         $sql = "SELECT headpic from user where id = $userId";
-        $oldPic = "/var/www/" . $this->conn->query($sql, "array")["headpic"];
+        $oldPic = $this->conn->query($sql, "array");
+        $oldPic = "/var/www/" . $oldPic["headpic"];
 
         // upload
-        move_uploaded_file($tmp_name, $url);
-        Db::_pictureCompressionOutput($url, $url);
+        @move_uploaded_file($tmp_name, $url);
+        Db::pictureCompressionOutput($url, $url, 100, 100);
+        header("Content-type: text/html");
 
         $pic = substr($url, strpos($url, "/uploads/headpic"));
 
-        $sql = "UPDATE user set headpic = '$pic' where id = $userId";
-        $res = $this->conn->query($sql);
+        $sql1 = "UPDATE user set `headpic` = '$pic' where id = $userId";
+        $res = $this->conn->query($sql1);
 
         if ($res) {
-            unlink($oldPic);
+            @unlink($oldPic);
 
             return array("successed" => "1");
         }
@@ -1026,21 +1028,14 @@ class Db extends MrModel
     }
 
     static function pictureCompressionOutput($file, $new_file, $new_width = 0, $new_height = 0) {
-        header('Content-type: image/jpeg');
-
-        list($width, $height) = getimagesize($file);
-
-        $new_width = intval($new_width)?$new_width:$width;
-        $new_height = intval($new_height)?$new_height:$height;
+        header("Content-type: image/jpg");
+        list($width, $height) = @getimagesize($file);
         
-        // 创建一个图片。接收参数分别为宽高，返回生成的资源句柄
-        $thumb = imagecreatetruecolor($new_width, $new_height);
-        //获取源文件资源句柄。接收参数为图片路径，返回句柄
-        $source = imagecreatefromjpeg($file);
-        // 将源文件剪切全部域并缩小放到目标图片上。前两个为资源句柄
-        imagecopyresampled($thumb, $source, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        $thumb = @imagecreatetruecolor($new_width, $new_height);
+        $source = @imagecreatefromjpeg($file);
+        @imagecopyresampled($thumb, $source, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-        imagejpeg($thumb, $new_file);
+        @imagejpeg($thumb, $new_file);
 
         return $new_file;
 

@@ -162,8 +162,10 @@ If return "error : 0", please check your post.
 > http://cat666.com/cat666-interface/index.php/index/getVideoById   
 
 ## alterPic  
-Get the videos by userid. The name of the POST is "pic".  
+Changed user picture. The name of the POST is "userid" and "pic".  
 If return "error : 0", please check your post.   
+If return "failed : 1", that means changed failed.    
+If return "succeed : 1", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/alterPic   
 
 

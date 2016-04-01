@@ -465,7 +465,13 @@ class Index extends MrController
     public function alterPic()
     {
         $userId = intval(post("userid"));
-        $signature = trim(post("signature"));
+        $pic = trim(post("pic"));
+
+        $pic = file_get_contents("E:\picture\\001.jpg");
+
+
+        file_put_contents("E:\\000\\text.jpg", $pic);
+
 
         if ($userId == 0) {
             $res = array("error" => "0");

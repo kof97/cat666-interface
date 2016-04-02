@@ -999,7 +999,7 @@ class Db extends MrModel
     public function alterPic($userId, $tmp_name)
     {
         $path = "/var/www/uploads/headpic/";
-        $name = date("Ymdhis") . "_phone" . $userId . ".jpg";
+        $name = date("Ymdhis") . ".jpg";
 
         $url = $path . $name;
 

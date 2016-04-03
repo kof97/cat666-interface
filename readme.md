@@ -44,7 +44,7 @@ For example:
 ## register
 user register. The name of the POST is "user" and "password".  
 If return "error : 0", that means user is null, please check you input.  
-If return "res : 0", that means user has already existed.  
+If return "exist : 1", that means user has already existed.  
 If return id and username, it means register successful.  
 For example:
 > http://cat666.com/cat666-interface/index.php/index/register
@@ -164,8 +164,8 @@ If return "error : 0", please check your post.
 ## alterPic  
 Changed user picture. The name of the POST is "userid" and "pic".  
 If return "error : 0", please check your post.   
-If return "failed : 1", that means changed failed.    
-If return "succeed : 1", that means changed succeed.  
+If return "failed : 1", "pic : `url`", that means changed failed.    
+If return "succeed : 1", "pic : `url`", that means changed succeed.  
 > http://cat666.com/cat666-interface/index.php/index/alterPic   
 
 

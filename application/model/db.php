@@ -160,15 +160,14 @@ class Db extends MrModel
         $stmt->execute();
 
         $res = array();
-        while($stmt->fetch()){
+        while ($stmt->fetch()) {
             $res = array('id' => $id, 'email' => $eamil, 'user' => $name);
         }
         $stmt->free_result();
-        
 
         // user exists
         if (count($res) > 0) {
-            return "[{'res':'0'}]";
+            return array("exist" => "1");
         }
 
         // insert
@@ -185,7 +184,7 @@ class Db extends MrModel
         $stmt->execute();
 
         $res = array();
-        while($stmt->fetch()){
+        while ($stmt->fetch()) {
             $res = array('id' => $id, 'email' => $e, 'user' => $n);
         }
         $stmt->free_result();
@@ -206,7 +205,7 @@ class Db extends MrModel
         $stmt->execute();
 
         $res = array();
-        while($stmt->fetch()){
+        while ($stmt->fetch()) {
             $res = array('id' => $id, 'user' => $name);
         }
         $stmt->free_result();
@@ -1004,8 +1003,8 @@ class Db extends MrModel
         $url = $path . $name;
 
         $sql = "SELECT headpic from user where id = $userId";
-        $oldPic = $this->conn->query($sql, "array");
-        $oldPic = "/var/www/" . $oldPic["headpic"];
+        $op = $this->conn->query($sql, "array");
+        $oldPic = "/var/www/" . $op["headpic"];
 
         // upload
         @move_uploaded_file($tmp_name, $url);
@@ -1018,12 +1017,14 @@ class Db extends MrModel
         $res = $this->conn->query($sql1);
 
         if ($res) {
-            @unlink($oldPic);
+            if (strpos($oldPic, "noface.jpg") === false) {
+                @unlink($oldPic);
+            }
 
-            return array("successed" => "1");
+            return array("successed" => "1", "pic" => $pic);
         }
 
-        return array("failed" => "1");
+        return array("failed" => "1", "pic" => $op["headpic"]);
         
     }
 

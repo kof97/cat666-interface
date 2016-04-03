@@ -116,8 +116,10 @@ class Index extends MrController
         $password = md5(post("password"));
 
         if (trim($user) == "") {
-            echo "[{\"error\":\"0\"}]";
-            return false;
+            $res = array("error" => "0");
+            $res = json_encode($res);
+            echo $res;
+            return 0;
         }
 
         $res = $this->model("db")->register($user, $password);

@@ -1,3 +1,7 @@
+官网网站： www.cat666.com
+iOS应用： APP store 中搜索 `猫溜` 
+
+
 # cat666 interface introduce
 -----
 First, we have only one controller that is the index. Each methods can be find in the index controller.

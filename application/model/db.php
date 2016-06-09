@@ -1046,7 +1046,7 @@ class Db extends MrModel
     {
         $arr = array();
 
-        $res = $this->db->query("SELECT * from videoinfo order by viewcounts");
+        $res = $this->db->query("SELECT * from videoinfo order by viewcounts desc");
         while ($r = $res->fetch_assoc()) {
             array_push($arr, $r);
         }

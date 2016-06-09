@@ -1042,5 +1042,17 @@ class Db extends MrModel
 
     }
 
+    public function getAll()
+    {
+        $arr = array();
+
+        $res = $this->db->query("SELECT * from videoinfo order by viewcounts");
+        while ($r = $res->fetch_assoc()) {
+            array_push($arr, $r);
+        }
+
+        return $arr;
+
+    }
 
 }

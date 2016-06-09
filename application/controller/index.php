@@ -484,7 +484,13 @@ class Index extends MrController
 
     }
 
-    
+    public function getAll() 
+    {
+        $res = $this->model("db")->getAll();
+        $res = json_encode($res);
+
+        echo $res;
+    }
 
 
 

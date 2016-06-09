@@ -7,6 +7,11 @@ iOS应用： APP store 中搜索 `猫溜`
 -----
 First, we have only one controller that is the index. Each methods can be find in the index controller.
 
+## getAll  
+获取所有视频，按照点击量排序.   
+> http://cat666.com/cat666-interface/index.php/index/getAll   
+
+
 ## Request Mode
 > $base_url/cat666-interface/index.php/index/$method
 
